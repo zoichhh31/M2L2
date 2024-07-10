@@ -1,0 +1,85 @@
+import discord
+from discord.ext import commands
+import os, random
+import requests
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='$', intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f'You have logged in as {bot.user}')
+
+@bot.command()
+async def hello(ctx):
+    await ctx.send(f'Welcome to RubbishGenerator_bot!') 
+    await ctx.send(f'- Please type "$next" untuk mengetahui list bot apa saja yang bisa kamu temukan di dalam bot ini!')
+    
+@bot.command()
+async def next(ctx):
+    await ctx.send(f'What do you want to search in this bot?')
+    await ctx.send(f'- Please type "$jenissampah" (TEXT) untuk mengetahui list apa saja semua jenis-jenis sampah!')
+    await ctx.send(f'- Please type "$solusipemilahan" (TEXT) untuk mengetahui jenis sampah apa saja yang harus ditaruh di tempat yang sesuai!')
+    await ctx.send(f'- Please type "$imgpemilahan" (GAMBAR) untuk mengetahui contoh barang apa saja yang sesuai dengan tempatnya')
+    await ctx.send(f'- Please type "$imgposter" (GAMBAR) untuk melihat poster yang membantu mengembangkan diri anda agar bisa selalu membuang sampah sesuai pada tempatnya dan mengurangi sampah-sampah setiap harinya!')
+    await ctx.send(f'- Please type "$imgmeme" (GAMBAR) untuk melihat meme ala anak muda yang menyindir para warga jika membuang sampah sembarangan dan mungkin bisa membuat kesadaran di dalam diri agar bisa mengurangi dan membuang sampah pada tempatnya!')
+    await ctx.send(f'- Please type "$imgcreativity" (GAMBAR) untuk melihat contoh seni dan karya yang dibuat dari sampah bekas (Misalnya : Botol bekas, dll)')
+
+@bot.command()
+async def solusipemilahan(ctx):
+    await ctx.send(f'- Jika sampah berbahan dari "plastik" utamakan masukkanlah sampah itu di dalam tempat sampah khusus daur ulang / Tempat Sampah Organik!')
+    await ctx.send(f'- Jika sampah berbahan dari sisa-sisa makhluk hidup, baik hewan, tanaman, dan sampah bekas makanan manusia utamakan masukkanlah sampah itu di dalam Tempat Sampah Anorganik (Sampah yang terurai secara alami)!')
+    await ctx.send(f'- Jika sampah berbahan dari sampah B3 yang mengandung Bahan Berbahaya atau Beracun karena sifat, konsentrasi, atau jumlahnya utamakan masukkanlah sampah itu di dalam Tempat Sampah B3!')
+
+
+@bot.command()
+async def jenissampah(ctx):
+    await ctx.send(f'Jenis-jenis sampah antara lain adalah :')
+    await ctx.send(f'- Sampah Organik')
+    await ctx.send(f'- Sampah Anorganik')
+    await ctx.send(f'- Sampah Bahan Berbahaya Beracun (B3)')
+    await ctx.send(f'- Sampah Padat') 
+    await ctx.send(f'- Sampah Cair')
+    await ctx.send(f'- Sampah Alam') 
+    await ctx.send(f'- Sampah Bekas Manusia') 
+    await ctx.send(f'- Sampah Konsumsi')
+
+
+@bot.command()
+async def imgpemilahan(ctx):
+    img_name = random.choice(os.listdir('PemilahanJenisSampah'))
+    with open(f'PemilahanJenisSampah/{img_name}', 'rb') as f:
+        picture = discord.File(f)
+ 
+    await ctx.send(file=picture) 
+
+@bot.command()
+async def imgposter(ctx):
+    img_name = random.choice(os.listdir('PosterSampah'))
+    with open(f'PosterSampah/{img_name}', 'rb') as f:
+        picture = discord.File(f)
+ 
+    await ctx.send(file=picture)
+
+@bot.command()
+async def imgmeme(ctx):
+    img_name = random.choice(os.listdir('MemeTentangSampah'))
+    with open(f'MemeTentangSampah/{img_name}', 'rb') as f:
+        picture = discord.File(f)
+ 
+    await ctx.send(file=picture) 
+
+@bot.command()
+async def imgcreativity(ctx):
+    img_name = random.choice(os.listdir('CreativityDariSampah'))
+    with open(f'CreativityDariSampah/{img_name}', 'rb') as f:
+        picture = discord.File(f)
+ 
+    await ctx.send(file=picture) 
+
+
+bot.run('Masukkanlah token mu disini kawan!')   
+
+
